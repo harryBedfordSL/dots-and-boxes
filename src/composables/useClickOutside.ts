@@ -1,6 +1,7 @@
-import { onMounted, onUnmounted, type Ref } from 'vue';
+import { onUnmounted, watch, type Ref } from 'vue';
 
 export interface UseClickOutside {
+  container: Ref<HTMLElement | null>;
   target: Ref<string>;
   callback: (e: MouseEvent) => void;
 }
@@ -8,7 +9,7 @@ export interface UseClickOutside {
 export const noTargetErrorMessage = 'A target classname has to be provided.';
 export const noCallbackErrorMessage = 'A callback has to be provided.';
 
-export const useClickOutside = ({ target, callback }: UseClickOutside): void => {
+export const useClickOutside = ({ target, callback, container }: UseClickOutside): void => {
   if (!target) {
     throw new Error(noTargetErrorMessage);
   }
@@ -32,11 +33,14 @@ export const useClickOutside = ({ target, callback }: UseClickOutside): void => 
     callback(event);
   };
 
-  onMounted(() => {
-    document.addEventListener('click', listener);
+  watch(container, (newContainer, oldContainer) => {
+    if (newContainer !== oldContainer) {
+      oldContainer?.removeEventListener('click', listener);
+      newContainer?.addEventListener('click', listener);
+    }
   });
 
-  onUnmounted(() => {
-    document.removeEventListener('click', listener);
+  onUnmounted(() => {    
+    container.value?.removeEventListener('click', listener);
   });
 };

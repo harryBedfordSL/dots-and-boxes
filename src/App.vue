@@ -1,12 +1,10 @@
 <script setup lang="ts">
-import Modal from '@/components/Modal.vue';
-import Welcome from '@/components/Welcome.vue';
+import GameContainer from '@/components/GameContainer.vue';
 </script>
 
 <template>
   <div class="container">
-    <Welcome />
-    <Modal />
+    <GameContainer />
   </div>
 </template>
 

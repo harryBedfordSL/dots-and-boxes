@@ -12,19 +12,21 @@ withDefaults(defineProps<ModalProps>(), {
 });
 
 const modalContent = ref('modal');
+const container = ref(null);
 
 const closeModal = (): void => {
   emit('close');
 };
 
 useClickOutside({
-  target: modalContent,
-  callback: closeModal
+  callback: closeModal,
+  container,
+  target: modalContent
 });
 </script>
 
 <template>
-  <div class="modal-background" v-if="isVisible">
+  <div class="modal-background" ref="container" v-if="isVisible">
     <div :class="modalContent">
       <header class="modal-header">
         <slot name="header">

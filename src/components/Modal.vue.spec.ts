@@ -2,9 +2,6 @@ import { mount } from '@vue/test-utils';
 import { expect, test, describe } from 'vitest';
 import Modal from './Modal.vue';
 
-// double check code to commit and push
-// also add tests to missing coverage (App, main.ts and types.ts)
-//   + Maybe should ignore some files from coverage
 describe('useClickOutside', () => {
   test('Should be visible when props isVisible is true', () => {
     const wrapper = mount(Modal, { props: { isVisible: true } });

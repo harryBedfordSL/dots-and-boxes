@@ -1,5 +1,41 @@
+@font-face {
+    font-family: 'Montserrat-light';
+    src: url('@/assets/fonts/Montserrat-Light.ttf');
+}
+@font-face {
+    font-family: 'Montserrat-light-italic';
+    src: url('@/assets/fonts/Montserrat-LightItalic.ttf');
+}
+@font-face {
+    font-family: 'Montserrat';
+    src: url('@/assets/fonts/Montserrat-Regular.ttf');
+}
+@font-face {
+    font-family: 'Montserrat-italic';
+    src: url('@/assets/fonts/Montserrat-Italic.ttf');
+}
+@font-face {
+    font-family: 'Montserrat-bold';
+    src: url('@/assets/fonts/Montserrat-Bold.ttf');
+}
+@font-face {
+    font-family: 'Montserrat-bold-italic';
+    src: url('@/assets/fonts/Montserrat-BoldItalic.ttf');
+}
+
 html, body, #app {
+    --background-primary: #12b754;
+    --background-secondary: #333333;
+    --text-color: #FFFFFF;
+    --highlight-color: #008080;
+    --border-color: #cccccc;
+    --accent-primary: #6FCF97;
+    --accent-primary-hover: #8DE4B2;
+
     height: 100%;
     margin: 0;
-    font-family: Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-family: 'Montserrat';
+    border-color: var(--border-color);
+    color: var(--text-color);
 }
+

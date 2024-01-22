@@ -1,9 +1,10 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import Modal from '@/components/Modal.vue';
+</script>
 
 <template>
   <div class="container">
-    <h1>WELCOME</h1>
-    <p>Dots and Boxes</p>
+    <Modal />
   </div>
 </template>
 

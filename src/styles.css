@@ -36,6 +36,7 @@ html, body, #app {
     margin: 0;
     font-family: 'Montserrat';
     border-color: var(--border-color);
+    background-color: var(--background-secondary);
     color: var(--text-color);
 }
 

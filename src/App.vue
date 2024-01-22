@@ -1,9 +1,11 @@
 <script setup lang="ts">
 import Modal from '@/components/Modal.vue';
+import Welcome from '@/components/Welcome.vue';
 </script>
 
 <template>
   <div class="container">
+    <Welcome />
     <Modal />
   </div>
 </template>

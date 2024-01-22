@@ -23,6 +23,7 @@ export default defineConfig({
         'src/main.ts',
       ],
     },
+    globals: true,
     environment: 'jsdom',
     exclude: ['**/node_modules/**', '**/dist/**'],
   }

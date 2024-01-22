@@ -54,10 +54,12 @@ useClickOutside({
   display: flex;
   justify-content: center;
   align-items: center;
+  z-index: 999;
 }
 
 .modal {
   min-width: 40%;
+  max-width: 60%;
   min-height: 60%;
   border-radius: 5px;
   background: #12b754;

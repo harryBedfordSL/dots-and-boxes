@@ -8,7 +8,7 @@ export interface Grid {
 export interface Game {
     grid: Grid;
     playerCount: number;
-    turn: PlayerId;
+    turn: PlayerId | null;
     started: boolean;
     winner: PlayerId | null;
 }

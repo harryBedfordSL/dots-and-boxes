@@ -1,12 +1,8 @@
 <script setup lang="ts">
+import { useGameStore } from '@/stores/GameStore';
 import type { Player } from '@/types';
 
-export interface PostGameProps {
-  restartGame: () => void;
-  goHome: () => void;
-}
-
-defineProps<PostGameProps>();
+const gameStore = useGameStore();
 
 const winner: Player = {
   name: 'Player 1',
@@ -21,8 +17,8 @@ const winner: Player = {
     <h1>Congratualtions {{ winner.name }}!</h1>
     <p>You won the game with {{ winner.score }} points</p>
     <div class="actions">
-      <button @click="$props.restartGame">Play again</button>
-      <button @click="$props.goHome">Home</button>
+      <button @click="gameStore.restartGame">Play again</button>
+      <button @click="gameStore.resetGame">Home</button>
     </div>
   </div>
 </template>

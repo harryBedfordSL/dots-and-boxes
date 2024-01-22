@@ -1,32 +1,29 @@
 <script setup lang="ts">
-const emit = defineEmits(['play', 'info']);
+import { useGameStore } from '@/stores/GameStore';
+import InfoModalVue from './modals/InfoModal.vue';
 
-const onPlay = () => {
-  emit('play');
-};
-
-const onInfo = () => {
-  emit('info');
-};
+const gameStore = useGameStore();
 </script>
 
 <template>
-  <div class="container">
+  <div class="header">
     <h1>Welcome to Dots + Boxes</h1>
-    <div class="actions">
-      <img src="@/assets/icons/play.svg" @click="onPlay" class="button test-play" />
-      <img src="@/assets/icons/info.svg" @click="onInfo" class="button test-info" />
-    </div>
+    <InfoModalVue />
   </div>
+  <p>Number of Players</p>
+  <p>Player Colour</p>
+  <p>Grid Size</p>
+  <p>Starting Player</p>
+  <img src="@/assets/icons/play.svg" @click="gameStore.startGame" class="button test-play" />
 </template>
 
 <style scoped>
-.container {
+.header {
   align-items: center;
   display: flex;
-  flex-direction: column;
   width: 50%;
-  text-align: center;
+  gap: 10px;
+  justify-content: center;
 }
 
 .actions {

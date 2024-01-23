@@ -18,8 +18,8 @@ const winner: Player = {
     <h1>Congratualtions {{ winner.name }}!</h1>
     <p>You won the game with {{ winner.score }} points</p>
     <div class="actions">
-      <Button @click="gameStore.resetGame">Home</Button>
-      <Button @click="gameStore.restartGame">Play again</Button>
+      <Button class="test-home" @click="gameStore.resetGame">Home</Button>
+      <Button class="test-restart" @click="gameStore.restartGame">Play again</Button>
     </div>
   </div>
 </template>

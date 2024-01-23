@@ -1,6 +1,8 @@
 import type { Game } from '@/types';
 import { defineStore } from 'pinia';
 
+export type GameStore = ReturnType<typeof useGameStore>;
+
 export const useGameStore = defineStore('game', {
     state: (): Game => ({
       grid: {

@@ -23,22 +23,22 @@ const restartGame = () => {
 };
 
 const endGame = () => {
-  calculateWinner();
+  calculateWinner(gameStore);
   gameStore.endGame();
   isVisible.value = false;
 };
 </script>
 
 <template>
-  <img src="@/assets/icons/settings.svg" @click="toggleModalVisibility" class="icon settings" />
+  <img src="@/assets/icons/settings.svg" @click="toggleModalVisibility" class="icon settings test-toggle" />
   <Modal :is-visible="isVisible" @close="isVisible = false">
     <template #header>
       <h1>Settings</h1>
     </template>
     <template #body>
-      <Button @click="goHome">Home</Button>
-      <Button @click="restartGame">Restart</Button>
-      <Button @click="endGame">End Game</Button>
+      <Button class="test-home" @click="goHome">Home</Button>
+      <Button class="test-restart" @click="restartGame">Restart</Button>
+      <Button class="test-end" @click="endGame">End Game</Button>
     </template>
   </Modal>
 </template>

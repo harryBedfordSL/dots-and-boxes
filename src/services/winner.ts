@@ -1,8 +1,6 @@
-import { useGameStore } from "@/stores/GameStore";
+import type { GameStore } from "@/stores/GameStore";
 
-export const calculateWinner = (): void => {
-  // TODO: use playerStore to calculate the winner
-  const gameStore = useGameStore();
-  
+export const calculateWinner = (gameStore: GameStore): void => {
+  // TODO: use playerStore to calculate the winner  
   gameStore.setWinner('Player 1'); 
 }

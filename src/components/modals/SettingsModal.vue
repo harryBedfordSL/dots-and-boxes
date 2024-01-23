@@ -12,6 +12,11 @@ const toggleModalVisibility = () => {
 
 const gameStore = useGameStore();
 
+const goHome = () => {
+  gameStore.resetGame();
+  isVisible.value = false;
+};
+
 const restartGame = () => {
   gameStore.restartGame();
   isVisible.value = false;
@@ -31,6 +36,7 @@ const endGame = () => {
       <h1>Settings</h1>
     </template>
     <template #body>
+      <Button @click="goHome">Home</Button>
       <Button @click="restartGame">Restart</Button>
       <Button @click="endGame">End Game</Button>
     </template>

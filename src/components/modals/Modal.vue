@@ -26,47 +26,59 @@ useClickOutside({
 </script>
 
 <template>
-  <div class="modal-background" ref="container" v-if="isVisible">
-    <div :class="modalContent">
-      <header class="modal-header">
-        <slot name="header">
-          <h1>Default header</h1>
-        </slot>
-        <button class="btn-close" @click="closeModal">
-          <img src="@/assets/icons/close.svg" class="img-close" />
-        </button>
-      </header>
-      <section class="modal-body">
-        <slot name="body">Default body</slot>
-      </section>
-    </div>
-  </div>
+  <Transition name="fade">
+    <div class="overlay" ref="container" v-if="isVisible"></div>
+  </Transition>
+  <Transition name="pop">
+      <div :class="modalContent" v-if="isVisible">
+        <header class="modal-header">
+          <slot name="header">
+            <h1>Default header</h1>
+          </slot>
+          <button class="btn-close" @click="closeModal">
+            <img src="@/assets/icons/close.svg" class="img-close" />
+          </button>
+        </header>
+        <section class="modal-body">
+          <slot name="body">Default body</slot>
+        </section>
+      </div>
+  </Transition>
 </template>
 
 <style scoped>
-.modal-background {
+.overlay {
+  content: '';
+  position: absolute;
   position: fixed;
   top: 0;
+  right: 0;
   bottom: 0;
   left: 0;
-  right: 0;
-  background-color: rgba(0, 0, 0, 0.5);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 999;
+  z-index: 998;
+  background: rgba(0, 0, 0, 0.5);
+  opacity: 0.6;
+  cursor: pointer;
 }
 
 .modal {
-  min-width: 40%;
-  max-width: 60%;
-  min-height: 60%;
-  border-radius: 5px;
-  background: #12b754;
-  box-shadow: 5px 5px 0px 1px var(--background-secondary);
   overflow-x: auto;
-  display: flex;
-  flex-direction: column;
+  position: absolute;
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  margin: auto;
+  width: fit-content;
+  height: fit-content;
+  max-width: 30em;
+  max-height: 75%;
+  padding: 1rem;
+  border-radius: 1rem;
+  box-shadow: 5px 5px 0px 1px var(--background-secondary);
+  background: var(--background-primary);
+  z-index: 999;
 }
 
 .modal-header {
@@ -98,5 +110,26 @@ useClickOutside({
 .img-close {
   width: 1rem;
   height: 1rem;
+}
+
+.pop-enter-active,
+.pop-leave-active {
+  transition: opacity 0.3s ease, transform 0.3s ease-in-out;
+}
+
+.pop-enter-from,
+.pop-leave-to {
+  opacity: 0;
+  transform: translateY(-50px);
+}
+
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity .4s ease;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
 }
 </style>

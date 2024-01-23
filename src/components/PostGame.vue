@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { useGameStore } from '@/stores/GameStore';
 import type { Player } from '@/types';
+import Button from './Button.vue';
 
 const gameStore = useGameStore();
 
@@ -17,8 +18,8 @@ const winner: Player = {
     <h1>Congratualtions {{ winner.name }}!</h1>
     <p>You won the game with {{ winner.score }} points</p>
     <div class="actions">
-      <button @click="gameStore.restartGame">Play again</button>
-      <button @click="gameStore.resetGame">Home</button>
+      <Button @click="gameStore.resetGame">Home</Button>
+      <Button @click="gameStore.restartGame">Play again</Button>
     </div>
   </div>
 </template>

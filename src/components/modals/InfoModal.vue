@@ -9,7 +9,7 @@ const toggleInfoVisibility = () => {
 </script>
 
 <template>
-  <img src="@/assets/icons/info.svg" @click="toggleInfoVisibility" class="button test-info" />
+  <img src="@/assets/icons/info.svg" @click="toggleInfoVisibility" class="icon relative test-info" />
   <Modal :is-visible="infoVisible" @close="infoVisible = false">
     <template #header>
       <h1>Info</h1>
@@ -47,19 +47,9 @@ const toggleInfoVisibility = () => {
 </template>
 
 <style scoped>
-.button {
-  filter: invert(79%) sepia(24%) saturate(704%) hue-rotate(91deg) brightness(92%) contrast(83%);
-  cursor: pointer;
+.relative {
   position: relative;
   bottom: 20px;
   width: 2rem;
-}
-
-.button:hover {
-  filter: invert(87%) sepia(12%) saturate(1037%) hue-rotate(88deg) brightness(95%) contrast(90%);
-}
-
-.button:active {
-  filter: invert(79%) sepia(24%) saturate(704%) hue-rotate(91deg) brightness(92%) contrast(83%);
 }
 </style>

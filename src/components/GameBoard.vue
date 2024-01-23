@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import type { Grid } from '@/types';
+import SettingsModal from './modals/SettingsModal.vue';
 
 const grid: Grid = {
   x: 5,
@@ -8,6 +9,7 @@ const grid: Grid = {
 </script>
 
 <template>
+  <SettingsModal />
   <table class="table">
     <tr v-for="y in grid.y" :key="y">
       <td v-for="x in grid.x" :key="x">

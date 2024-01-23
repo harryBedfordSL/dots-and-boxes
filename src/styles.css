@@ -1,42 +1,58 @@
 @font-face {
-    font-family: 'Montserrat-light';
-    src: url('@/assets/fonts/Montserrat-Light.ttf');
+  font-family: 'Montserrat-light';
+  src: url('@/assets/fonts/Montserrat-Light.ttf');
 }
 @font-face {
-    font-family: 'Montserrat-light-italic';
-    src: url('@/assets/fonts/Montserrat-LightItalic.ttf');
+  font-family: 'Montserrat-light-italic';
+  src: url('@/assets/fonts/Montserrat-LightItalic.ttf');
 }
 @font-face {
-    font-family: 'Montserrat';
-    src: url('@/assets/fonts/Montserrat-Regular.ttf');
+  font-family: 'Montserrat';
+  src: url('@/assets/fonts/Montserrat-Regular.ttf');
 }
 @font-face {
-    font-family: 'Montserrat-italic';
-    src: url('@/assets/fonts/Montserrat-Italic.ttf');
+  font-family: 'Montserrat-italic';
+  src: url('@/assets/fonts/Montserrat-Italic.ttf');
 }
 @font-face {
-    font-family: 'Montserrat-bold';
-    src: url('@/assets/fonts/Montserrat-Bold.ttf');
+  font-family: 'Montserrat-bold';
+  src: url('@/assets/fonts/Montserrat-Bold.ttf');
 }
 @font-face {
-    font-family: 'Montserrat-bold-italic';
-    src: url('@/assets/fonts/Montserrat-BoldItalic.ttf');
+  font-family: 'Montserrat-bold-italic';
+  src: url('@/assets/fonts/Montserrat-BoldItalic.ttf');
 }
 
-html, body, #app {
-    --background-primary: #12b754;
-    --background-secondary: #333333;
-    --text-color: #FFFFFF;
-    --highlight-color: #008080;
-    --border-color: #cccccc;
-    --accent-primary: #6FCF97;
-    --accent-primary-hover: #8DE4B2;
+html,
+body,
+#app {
+  --background-primary: #12b754;
+  --background-secondary: #333333;
+  --text-color: #ffffff;
+  --highlight-color: #008080;
+  --border-color: #cccccc;
+  --accent-primary: #6fcf97;
+  --accent-primary-hover: #8de4b2;
+  --accent-secondary: #c0ad8e;
+  --accent-secondary-hover: #d2e5d4;
 
-    height: 100%;
-    margin: 0;
-    font-family: 'Montserrat';
-    border-color: var(--border-color);
-    background-color: var(--background-secondary);
-    color: var(--text-color);
+  height: 100%;
+  margin: 0;
+  font-family: 'Montserrat';
+  border-color: var(--border-color);
+  background-color: var(--background-secondary);
+  color: var(--text-color);
 }
 
+.icon {
+  filter: invert(79%) sepia(24%) saturate(704%) hue-rotate(91deg) brightness(92%) contrast(83%);
+  cursor: pointer;
+}
+
+.icon:hover {
+  filter: invert(87%) sepia(12%) saturate(1037%) hue-rotate(88deg) brightness(95%) contrast(90%);
+}
+
+.icon:active {
+  filter: invert(79%) sepia(24%) saturate(704%) hue-rotate(91deg) brightness(92%) contrast(83%);
+}

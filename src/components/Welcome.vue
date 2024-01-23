@@ -14,7 +14,7 @@ const gameStore = useGameStore();
   <p>Player Colour</p>
   <p>Grid Size</p>
   <p>Starting Player</p>
-  <img src="@/assets/icons/play.svg" @click="gameStore.startGame" class="button test-play" />
+  <img src="@/assets/icons/play.svg" @click="gameStore.startGame" class="icon test-play" />
 </template>
 
 <style scoped>
@@ -31,18 +31,5 @@ const gameStore = useGameStore();
   width: 75%;
   justify-content: space-evenly;
   margin-top: 20px;
-}
-
-.button {
-  filter: invert(79%) sepia(24%) saturate(704%) hue-rotate(91deg) brightness(92%) contrast(83%);
-  cursor: pointer;
-}
-
-.button:hover {
-  filter: invert(87%) sepia(12%) saturate(1037%) hue-rotate(88deg) brightness(95%) contrast(90%);
-}
-
-.button:active {
-  filter: invert(79%) sepia(24%) saturate(704%) hue-rotate(91deg) brightness(92%) contrast(83%);
 }
 </style>

@@ -30,7 +30,7 @@ const endGame = () => {
 </script>
 
 <template>
-  <img src="@/assets/icons/settings.svg" @click="toggleModalVisibility" class="icon settings test-toggle" />
+  <img src="@/assets/icons/settings.svg" @click="toggleModalVisibility" class="icon clickable settings test-toggle" />
   <Modal :is-visible="isVisible" @close="isVisible = false">
     <template #header>
       <h1>Settings</h1>

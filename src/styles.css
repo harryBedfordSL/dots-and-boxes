@@ -35,6 +35,7 @@ body,
   --accent-primary-hover: #8de4b2;
   --accent-secondary: #c0ad8e;
   --accent-secondary-hover: #d2e5d4;
+  --disabled-color: #888;
 
   height: 100%;
   margin: 0;
@@ -46,13 +47,16 @@ body,
 
 .icon {
   filter: invert(79%) sepia(24%) saturate(704%) hue-rotate(91deg) brightness(92%) contrast(83%);
+}
+
+.clickable {
   cursor: pointer;
 }
 
-.icon:hover {
+.clickable:hover {
   filter: invert(87%) sepia(12%) saturate(1037%) hue-rotate(88deg) brightness(95%) contrast(90%);
 }
 
-.icon:active {
+.clickable:active {
   filter: invert(79%) sepia(24%) saturate(704%) hue-rotate(91deg) brightness(92%) contrast(83%);
 }

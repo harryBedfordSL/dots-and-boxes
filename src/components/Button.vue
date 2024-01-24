@@ -1,10 +1,12 @@
 <script setup lang="ts">
 export interface ButtonProps {
   type?: 'primary' | 'secondary';
+  disabled?: boolean;
 }
 
 withDefaults(defineProps<ButtonProps>(), {
   type: 'primary',
+  disabled: false
 });
 
 const emit = defineEmits(['click']);
@@ -15,13 +17,13 @@ const onClick = () => {
 </script>
 
 <template>
-  <button class="btn" :class="type === 'primary' ? 'primary' : 'secondary'" @click="onClick">
+  <button :disabled="disabled" :class="type === 'primary' ? 'primary' : 'secondary'" @click="onClick">
     <slot></slot>
   </button>
 </template>
 
 <style scoped>
-.btn {
+button {
   border-radius: 5px;
   border: none;
   color: var(--text-color);
@@ -35,15 +37,20 @@ const onClick = () => {
   transition: 0.3s;
 }
 
+button:disabled {
+  background-color: var(--disabled-color);
+  cursor: default;
+}
+
 .primary {
   background-color: var(--accent-primary);
 }
 
-.primary:hover {
+.primary:not([disabled]):hover {
   background-color: var(--accent-primary-hover);
 }
 
-.primary:active {
+.primary:not([disabled]):active {
   background-color: var(--accent-primary);
 }
 
@@ -51,11 +58,11 @@ const onClick = () => {
   background-color: var(--accent-secondary);
 }
 
-.secondary:hover {
+.secondary:not([disabled]):hover {
   background-color: var(--accent-secondary-hover);
 }
 
-.secondary:active {
+.secondary:not([disabled]):active {
   background-color: var(--accent-secondary);
 }
 </style>

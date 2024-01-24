@@ -9,7 +9,7 @@ const toggleInfoVisibility = () => {
 </script>
 
 <template>
-  <img src="@/assets/icons/info.svg" @click="toggleInfoVisibility" class="icon relative test-info" />
+  <img src="@/assets/icons/info.svg" @click="toggleInfoVisibility" class="icon clickable relative test-info" />
   <Modal :is-visible="infoVisible" @close="infoVisible = false">
     <template #header>
       <h1>Info</h1>

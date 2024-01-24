@@ -2,6 +2,7 @@
 import { useGameStore } from '@/stores/GameStore';
 import NumberOfPlayersVue from './NumberOfPlayers.vue';
 import PlayerNames from './PlayerNames.vue';
+import PlayerColors from './PlayerColors.vue';
 
 const gameStore = useGameStore();
 </script>
@@ -18,7 +19,7 @@ const gameStore = useGameStore();
     </div>
     <div class="form-item">
       <img src="@/assets/icons/color.svg" class="icon" />
-      Player Colour
+      <PlayerColors />
     </div>
     <div class="form-item">
       <img src="@/assets/icons/dots.svg" class="icon" />

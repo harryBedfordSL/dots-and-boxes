@@ -15,13 +15,19 @@ const onInput = (event: Event, id: string) => {
 </script>
 
 <template>
-  <input type="text" v-for="player in players" :key="player.id" :value="player.name" @input="onInput($event, player.id)" />
+  <input
+    type="text"
+    v-for="player in players"
+    :key="player.id"
+    :value="player.name"
+    @input="onInput($event, player.id)"
+  />
 </template>
 
 <style scoped>
 input {
   width: 100px;
-    text-align: center;
+  text-align: center;
   font-size: 16px;
   padding: 8px;
   border: 1px solid #ccc;
@@ -31,7 +37,7 @@ input {
 }
 
 input:focus {
-  border-color: #4CAF50;
+  border-color: #4caf50;
   box-shadow: 3px 3px 0px rgba(76, 175, 80, 0.5);
 }
 </style>

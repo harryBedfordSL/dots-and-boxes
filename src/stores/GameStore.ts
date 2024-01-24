@@ -33,6 +33,18 @@ export const useGameStore = defineStore('game', {
       endGame() {
         this.started = false;
         this.turn = null;
+      },
+      increaseGridX() {
+        this.grid.x++;
+      },
+      decreaseGridX() {
+        this.grid.x--;
+      },
+      increaseGridY() {
+        this.grid.y++;
+      },
+      decreaseGridY() {
+        this.grid.y--;
       }
     }
   });

@@ -3,6 +3,7 @@ import { useGameStore } from '@/stores/GameStore';
 import NumberOfPlayersVue from './NumberOfPlayers.vue';
 import PlayerNames from './PlayerNames.vue';
 import PlayerColors from './PlayerColors.vue';
+import GridSize from './GridSize.vue';
 
 const gameStore = useGameStore();
 </script>
@@ -22,8 +23,8 @@ const gameStore = useGameStore();
       <PlayerColors />
     </div>
     <div class="form-item">
-      <img src="@/assets/icons/dots.svg" class="icon" />
-      Grid Size
+      <img src="@/assets/icons/horizontal-arrow.svg" class="icon" />
+      <GridSize />
     </div>
     <div class="form-item">
       <img src="@/assets/icons/first.svg" class="icon" />
@@ -32,17 +33,22 @@ const gameStore = useGameStore();
     <img
       src="@/assets/icons/play.svg"
       @click="gameStore.startGame"
-      class="icon clickable test-play"
+      class="icon clickable play test-play"
     />
   </form>
 </template>
 
 <style scoped>
+.play {
+  height: 100px;
+  width: 100px;
+}
+
 .form-container {
   align-items: center;
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 30px;
   justify-content: center;
   width: 30%;
   padding: 20px;

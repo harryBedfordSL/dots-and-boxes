@@ -1,11 +1,15 @@
 <script setup lang="ts">
 import type { Grid } from '@/types';
 import SettingsModal from './modals/SettingsModal.vue';
+import { useGameStore } from '@/stores/GameStore';
+import { reactive } from 'vue';
 
-const grid: Grid = {
-  x: 5,
-  y: 5
-};
+const gameStore = useGameStore();
+
+const grid: Grid = reactive({
+  x: gameStore.grid.x,
+  y: gameStore.grid.y
+})
 </script>
 
 <template>

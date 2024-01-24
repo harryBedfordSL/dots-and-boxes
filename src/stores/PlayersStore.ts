@@ -36,6 +36,12 @@ export const usePlayersStore = defineStore('players', {
       }, {});
 
       this.players = newPlayers;
+    },
+    updatePlayer(playerId: string, update: Partial<Player>) {
+      this.players[playerId] = {
+        ...this.players[playerId],
+        ...update
+      }
     }
   }
 });

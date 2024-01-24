@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { useGameStore } from '@/stores/GameStore';
 import NumberOfPlayersVue from './NumberOfPlayers.vue';
+import PlayerNames from './PlayerNames.vue';
 
 const gameStore = useGameStore();
 </script>
@@ -13,7 +14,7 @@ const gameStore = useGameStore();
     </div>
     <div class="form-item">
       <img src="@/assets/icons/edit.svg" class="icon" />
-      Player Names
+      <PlayerNames />
     </div>
     <div class="form-item">
       <img src="@/assets/icons/color.svg" class="icon" />
@@ -42,7 +43,7 @@ const gameStore = useGameStore();
   flex-direction: column;
   gap: 20px;
   justify-content: center;
-  max-width: fit-content;
+  width: 30%;
   padding: 20px;
 }
 .form-item {

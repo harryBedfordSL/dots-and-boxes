@@ -5,6 +5,7 @@ import { useGameStore } from '@/stores/GameStore';
 import GameBoard from './GameBoard.vue';
 import PostGame from './PostGame.vue';
 import Page from './Page.vue';
+import Score from './Score.vue';
 
 const gameStore = useGameStore();
 
@@ -30,9 +31,8 @@ const active = computed<ActiveElement>(() => {
 </script>
 
 <template>
+  <Score />
   <Page :containerKey="active.key">
     <component :is="active.component" />
   </Page>
 </template>
-
-<style scoped></style>

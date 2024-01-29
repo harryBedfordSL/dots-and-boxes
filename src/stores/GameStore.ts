@@ -9,7 +9,6 @@ export const useGameStore = defineStore('game', {
         x: 5,
         y: 5
       },
-      playerCount: 2,
       started: false,
       turn: null,
       winner: null
@@ -29,6 +28,9 @@ export const useGameStore = defineStore('game', {
       restartGame() {
         this.resetGame();
         this.startGame();
+      },
+      setTurn(id: string) {
+        this.turn = id;
       },
       endGame() {
         this.started = false;

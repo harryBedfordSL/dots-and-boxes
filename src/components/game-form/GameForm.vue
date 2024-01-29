@@ -4,6 +4,7 @@ import NumberOfPlayersVue from './NumberOfPlayers.vue';
 import PlayerNames from './PlayerNames.vue';
 import PlayerColors from './PlayerColors.vue';
 import GridSize from './GridSize.vue';
+import StartingPlayer from './StartingPlayer.vue';
 
 const gameStore = useGameStore();
 </script>
@@ -28,7 +29,7 @@ const gameStore = useGameStore();
     </div>
     <div class="form-item">
       <img src="@/assets/icons/first.svg" class="icon" />
-      Starting Player
+      <StartingPlayer />
     </div>
     <img
       src="@/assets/icons/play.svg"

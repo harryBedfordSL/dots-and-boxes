@@ -30,10 +30,12 @@ input {
   text-align: center;
   font-size: 16px;
   padding: 8px;
-  border: 1px solid #ccc;
+  border: 1px solid var(--border-color);
   border-radius: 4px;
   outline: none;
   transition: border-color 0.2s ease-in-out;
+  background-color: transparent;
+  color: var(--text-color);
 }
 
 input:focus {

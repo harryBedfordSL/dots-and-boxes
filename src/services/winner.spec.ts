@@ -15,7 +15,7 @@ vi.mock('@/stores/PlayersStore', () => ({
   })
 }));
 
-describe.only('winner', () => {
+describe('winner', () => {
   afterEach(() => {
     vi.resetAllMocks();
   })

@@ -2,22 +2,13 @@
 import { useGameStore } from '@/stores/GameStore';
 import { usePlayersStore } from '@/stores/PlayersStore';
 import { computed, ref, type Ref } from 'vue';
+import { defaultTurn, type Option } from '@/types';
 
 const playersStore = usePlayersStore();
 const gameStore = useGameStore();
 
-interface Option {
-  value: string;
-  label: string;
-}
-
-const defaultOption: Option = {
-  value: 'random',
-  label: 'Random'
-};
-
 const options: Ref<Option[]> = computed(() => [
-  defaultOption,
+  defaultTurn,
   ...Object.values(playersStore.players).map((player) => ({
     value: player.id,
     label: player.name
@@ -25,9 +16,15 @@ const options: Ref<Option[]> = computed(() => [
 ]);
 
 const selected: Ref<Option> = computed(() => {
-  return options.value.find(({ value }) => value === gameStore.turn) ?? defaultOption;
+  return options.value.find(({ value }) => value === gameStore.turn) ?? defaultTurn;
 });
 const open = ref(false);
+
+const onSelect = (option: Option) => {
+  selected.value = option;
+  open.value = false;
+  gameStore.setTurn(option.value);
+};
 </script>
 
 <template>
@@ -39,11 +36,7 @@ const open = ref(false);
       <div
         v-for="option of options"
         :key="option.value"
-        @click="
-          selected = option;
-          open = false;
-          gameStore.setTurn(option.value);
-        "
+        @click="onSelect(option)"
       >
         {{ option.label }}
       </div>

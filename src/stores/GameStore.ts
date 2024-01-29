@@ -22,7 +22,6 @@ export const useGameStore = defineStore('game', {
       },
       resetGame() {
         this.started = false;
-        this.turn = null;
         this.winner = null;
       },
       restartGame() {

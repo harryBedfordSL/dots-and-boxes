@@ -34,7 +34,6 @@ describe('GameStore', () => {
     store.resetGame();
 
     expect(store.started).toBe(false);
-    expect(store.turn).toBe(null);
     expect(store.winner).toBe(null);
   })
 

@@ -4,7 +4,7 @@ import GameContainer from './GameContainer.vue';
 import { createTestingPinia } from '@pinia/testing';
 import { useGameStore } from '@/stores/GameStore';
 
-describe.only('GameContainer', () => {
+describe('GameContainer', () => {
   let wrapper: VueWrapper<typeof GameContainer>;
   let store: ReturnType<typeof useGameStore>;
 

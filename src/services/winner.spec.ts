@@ -1,6 +1,7 @@
-import { describe, expect, test, vi } from 'vitest';
+import { afterEach, describe, expect, test, vi } from 'vitest';
 import { calculateWinner } from './winner';
 import { useGameStore } from '@/stores/GameStore';
+import { usePlayersStore } from '@/stores/PlayersStore';
 
 vi.mock('@/stores/GameStore', () => ({
   useGameStore: () => ({
@@ -8,12 +9,45 @@ vi.mock('@/stores/GameStore', () => ({
   })
 }));
 
+vi.mock('@/stores/PlayersStore', () => ({
+  usePlayersStore: () => ({
+    players: vi.fn()
+  })
+}));
+
 describe.only('winner', () => {
+  afterEach(() => {
+    vi.resetAllMocks();
+  })
+
+  const gameStore = useGameStore();
+  const playersStore = usePlayersStore();
+
   test('Should call set winner action', () => {
-    const store = useGameStore();
+    calculateWinner(gameStore, playersStore);
 
-    calculateWinner(store);
+    expect(gameStore.setWinner).toHaveBeenCalled();
+  });
 
-    expect(store.setWinner).toHaveBeenCalled();
+  test('Should call set winner action with the correct winner id', () => {
+    playersStore.players = {
+      a: { score: 10, color: 'red', id: 'a', name: 'Player 1' },
+      b: { score: 5, color: 'blue', id: 'b', name: 'Player 1' },
+    };
+    
+    calculateWinner(gameStore, playersStore);
+    
+    expect(gameStore.setWinner).toHaveBeenCalledWith('a');
+  });
+  
+  test('Should call set winner action with draw when no winner', () => {
+    playersStore.players = {
+      a: { score: 10, color: 'red', id: 'a', name: 'Player 1' },
+      b: { score: 10, color: 'blue', id: 'b', name: 'Player 1' },
+    };
+
+    calculateWinner(gameStore, playersStore);
+    
+    expect(gameStore.setWinner).toHaveBeenCalledWith('draw');
   });
 });

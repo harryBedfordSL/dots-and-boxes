@@ -1,51 +1,62 @@
-import type { Game } from '@/types';
 import { defineStore } from 'pinia';
+import { reactive, ref } from 'vue';
+import { usePlayersStore } from './PlayersStore';
 
 export type GameStore = ReturnType<typeof useGameStore>;
 
-export const useGameStore = defineStore('game', {
-    state: (): Game => ({
-      grid: {
-        x: 5,
-        y: 5
-      },
-      started: false,
-      turn: null,
-      winner: null
-    }),
-    actions: {
-      setWinner(playerId: string | null) {
-        this.winner = playerId;
-      },
-      startGame() {
-        this.started = true;
-      },
-      resetGame() {
-        this.started = false;
-        this.winner = null;
-      },
-      restartGame() {
-        this.resetGame();
-        this.startGame();
-      },
-      setTurn(id: string) {
-        this.turn = id;
-      },
-      endGame() {
-        this.started = false;
-        this.turn = null;
-      },
-      increaseGridX() {
-        this.grid.x++;
-      },
-      decreaseGridX() {
-        this.grid.x--;
-      },
-      increaseGridY() {
-        this.grid.y++;
-      },
-      decreaseGridY() {
-        this.grid.y--;
-      }
-    }
+export const useGameStore = defineStore('game', () => {
+  const grid = reactive({
+    x: 5,
+    y: 5
   });
+  const started = ref(false);
+  const turn = ref<string | null>(null);
+  const winner = ref<string | null>(null);
+
+  const playersStore = usePlayersStore();
+
+  const resetGame = () => {
+    playersStore.resetScores();
+    started.value = false;
+    winner.value = null;
+  };
+  const startGame = () => {
+    playersStore.resetScores();
+    started.value = true;
+  };
+
+  return {
+    grid,
+    started,
+    turn,
+    winner,
+    setWinner(playerId: string | null) {
+      winner.value = playerId;
+    },
+    startGame,
+    resetGame,
+    restartGame() {
+      resetGame();
+      startGame();
+    },
+    setTurn(id: string) {
+      turn.value = id;
+    },
+    endGame() {
+      started.value = false;
+      turn.value = null;
+    },
+    increaseGridX() {
+      grid.x++;
+    },
+    decreaseGridX() {
+      grid.x--;
+    },
+    increaseGridY() {
+      grid.y++;
+    },
+    decreaseGridY() {
+      grid.y--;
+    }
+  };
+});

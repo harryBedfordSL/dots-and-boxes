@@ -56,6 +56,11 @@ export const usePlayersStore = defineStore('players', {
         ...this.players[playerId],
         ...update
       };
+    },
+    resetScores() {
+      Object.keys(this.players).forEach((key) => {
+        this.players[key].score = 0;
+      });
     }
   }
 });

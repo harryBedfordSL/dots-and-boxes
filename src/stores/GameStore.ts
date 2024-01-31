@@ -1,9 +1,16 @@
 import { defineStore } from 'pinia';
-import { reactive, ref } from 'vue';
+import { computed, reactive, ref, watch } from 'vue';
 import { usePlayersStore } from './PlayersStore';
 import { calculateWinner } from '@/services/winner';
+import type { Grid } from '@/types';
 
 export type GameStore = ReturnType<typeof useGameStore>;
+
+export interface Lines {
+  horizontals: number[][];
+  verticals: number[][];
+  boxes: string[][];
+}
 
 export const useGameStore = defineStore('game', () => {
   const grid = reactive({
@@ -16,8 +23,29 @@ export const useGameStore = defineStore('game', () => {
 
   const playersStore = usePlayersStore();
 
+  const lines = reactive<Lines>({
+    verticals: Array.from({ length: grid.x - 1 }, () => Array.from({ length: grid.y }, () => 0)),
+    horizontals: Array.from({ length: grid.y }, () => Array.from({ length: grid.x - 1 }, () => 0)),
+    boxes: Array.from({ length: grid.y - 1 }, () => Array.from({ length: grid.x - 1 }, () => ''))
+  });
+  const resetLinesAndBoxes = (newGrid: Grid): void => {
+    lines.horizontals = Array.from({ length: newGrid.y }, () =>
+      Array.from({ length: newGrid.x - 1 }, () => 0)
+    );
+    lines.verticals = Array.from({ length: newGrid.x - 1 }, () =>
+      Array.from({ length: newGrid.y }, () => 0)
+    );
+    lines.boxes = Array.from({ length: newGrid.y - 1 }, () =>
+      Array.from({ length: newGrid.x - 1 }, () => '')
+    );
+  };
+  watch(grid, (newGrid): void => {
+    resetLinesAndBoxes(newGrid);
+  });
+
   const resetGame = () => {
     playersStore.resetScores();
+    resetLinesAndBoxes(grid);
     started.value = false;
     winner.value = null;
   };
@@ -28,7 +56,7 @@ export const useGameStore = defineStore('game', () => {
 
   const setWinner = (playerId: string | null) => {
     winner.value = playerId;
-  }
+  };
 
   const endTurn = () => {
     if (!turn.value) {
@@ -36,12 +64,14 @@ export const useGameStore = defineStore('game', () => {
     }
     const playerIds = Object.keys(playersStore.players);
     const currentPlayerIndex = playerIds.indexOf(turn.value);
-    const nextPlayerIndex = (playerIds.length - 1) === currentPlayerIndex ? 0 : currentPlayerIndex + 1;
+    const nextPlayerIndex =
+      playerIds.length - 1 === currentPlayerIndex ? 0 : currentPlayerIndex + 1;
 
     turn.value = playerIds[nextPlayerIndex];
-  }
+  };
 
   return {
+    lines,
     grid,
     endTurn,
     started,

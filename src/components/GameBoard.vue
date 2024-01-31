@@ -17,18 +17,6 @@ const grid: Grid = reactive({
 const xLinesAndDots = computed(() => grid.x + (grid.x - 1));
 const yLinesAndDots = computed(() => grid.y + (grid.y - 1));
 
-interface Lines {
-  horizontals: number[][];
-  verticals: number[][];
-}
-
-const lines = reactive<Lines>({
-  horizontals: [],
-  verticals: []
-});
-
-const boxes = ref<string[][]>([]);
-
 onMounted(() => {
   if (gameStore.turn !== null && gameStore.turn !== defaultTurn.value) {
     return;
@@ -37,17 +25,6 @@ onMounted(() => {
   const playerIds = Object.values(playersStore.players).map(({ id }) => id);
   const startingTurn = getRandomInt(1, playerIds.length);
   gameStore.setTurn(playerIds[startingTurn - 1]);
-
-  lines.horizontals = Array.from({ length: grid.y }, () =>
-    Array.from({ length: grid.x - 1 }, () => 0)
-  );
-  lines.verticals = Array.from({ length: grid.x - 1 }, () =>
-    Array.from({ length: grid.y }, () => 0)
-  );
-
-  boxes.value = Array.from({ length: grid.y - 1 }, () =>
-    Array.from({ length: grid.x - 1 }, () => '')
-  );
 });
 
 type LineType = 'horizontals' | 'verticals';
@@ -71,11 +48,11 @@ const getNormalisedBoxCoordinates = (row: number, cell: number): [number, number
 };
 
 const getBoxStyle = (row: number, cell: number) => {
-  if (boxes.value.length === 0) {
+  if (gameStore.lines.boxes.length === 0) {
     return;
   }
   const [rowIndex, cellIndex] = getNormalisedBoxCoordinates(row, cell);
-  const boxId = boxes.value[rowIndex][cellIndex];
+  const boxId = gameStore.lines.boxes[rowIndex][cellIndex];
   const player = playersStore.players[boxId];
 
   return {
@@ -84,8 +61,8 @@ const getBoxStyle = (row: number, cell: number) => {
 };
 
 const remainingLines = computed(() => {
-  const horizontalLines = lines.horizontals.flat().filter(Boolean).length;
-  const verticalLines = lines.verticals.flat().filter(Boolean).length;
+  const horizontalLines = gameStore.lines.horizontals.flat().filter(Boolean).length;
+  const verticalLines = gameStore.lines.verticals.flat().filter(Boolean).length;
 
   return (grid.x - 1) * grid.y + (grid.y - 1) * grid.x - (horizontalLines + verticalLines);
 });
@@ -93,32 +70,32 @@ const remainingLines = computed(() => {
 const checkForCompleteBox = (rowIndex: number, lineIndex: number, type: LineType): boolean => {
   let madeBox = false;
   if (type === 'horizontals') {
-    const lineAbove = lines.horizontals[rowIndex - 1]?.[lineIndex];
-    const leftUpperLine = lines.verticals[rowIndex - 1]?.[lineIndex];
-    const rightUpperLine = lines.verticals[rowIndex - 1]?.[lineIndex + 1];
+    const lineAbove = gameStore.lines.horizontals[rowIndex - 1]?.[lineIndex];
+    const leftUpperLine = gameStore.lines.verticals[rowIndex - 1]?.[lineIndex];
+    const rightUpperLine = gameStore.lines.verticals[rowIndex - 1]?.[lineIndex + 1];
     if (
       lineAbove &&
       leftUpperLine &&
       rightUpperLine &&
-      boxes.value[rowIndex - 1][lineIndex] === '' &&
+      gameStore.lines.boxes[rowIndex - 1][lineIndex] === '' &&
       gameStore.turn
     ) {
-      boxes.value[rowIndex - 1][lineIndex] = gameStore.turn;
+      gameStore.lines.boxes[rowIndex - 1][lineIndex] = gameStore.turn;
       playersStore.incrementScore(gameStore.turn);
       madeBox = true;
     }
 
-    const lineBelow = lines.horizontals[rowIndex + 1]?.[lineIndex];
-    const leftLowerLine = lines.verticals[rowIndex]?.[lineIndex];
-    const rightLowerLine = lines.verticals[rowIndex]?.[lineIndex + 1];
+    const lineBelow = gameStore.lines.horizontals[rowIndex + 1]?.[lineIndex];
+    const leftLowerLine = gameStore.lines.verticals[rowIndex]?.[lineIndex];
+    const rightLowerLine = gameStore.lines.verticals[rowIndex]?.[lineIndex + 1];
     if (
       lineBelow &&
       leftLowerLine &&
       rightLowerLine &&
-      boxes.value[rowIndex][lineIndex] === '' &&
+      gameStore.lines.boxes[rowIndex][lineIndex] === '' &&
       gameStore.turn
     ) {
-      boxes.value[rowIndex][lineIndex] = gameStore.turn;
+      gameStore.lines.boxes[rowIndex][lineIndex] = gameStore.turn;
       playersStore.incrementScore(gameStore.turn);
       madeBox = true;
     }
@@ -126,32 +103,32 @@ const checkForCompleteBox = (rowIndex: number, lineIndex: number, type: LineType
     return madeBox;
   }
 
-  const lineLeft = lines.verticals[rowIndex]?.[lineIndex - 1];
-  const leftUpperLine = lines.horizontals[rowIndex]?.[lineIndex - 1];
-  const leftLowerLine = lines.horizontals[rowIndex + 1]?.[lineIndex - 1];
+  const lineLeft = gameStore.lines.verticals[rowIndex]?.[lineIndex - 1];
+  const leftUpperLine = gameStore.lines.horizontals[rowIndex]?.[lineIndex - 1];
+  const leftLowerLine = gameStore.lines.horizontals[rowIndex + 1]?.[lineIndex - 1];
   if (
     lineLeft &&
     leftUpperLine &&
     leftLowerLine &&
-    boxes.value[rowIndex][lineIndex - 1] === '' &&
+    gameStore.lines.boxes[rowIndex][lineIndex - 1] === '' &&
     gameStore.turn
   ) {
-    boxes.value[rowIndex][lineIndex - 1] = gameStore.turn;
+    gameStore.lines.boxes[rowIndex][lineIndex - 1] = gameStore.turn;
     playersStore.incrementScore(gameStore.turn);
     madeBox = true;
   }
 
-  const lineRight = lines.verticals[rowIndex]?.[lineIndex + 1];
-  const rightUpperLine = lines.horizontals[rowIndex]?.[lineIndex];
-  const rightLowerLine = lines.horizontals[rowIndex + 1]?.[lineIndex];
+  const lineRight = gameStore.lines.verticals[rowIndex]?.[lineIndex + 1];
+  const rightUpperLine = gameStore.lines.horizontals[rowIndex]?.[lineIndex];
+  const rightLowerLine = gameStore.lines.horizontals[rowIndex + 1]?.[lineIndex];
   if (
     lineRight &&
     rightUpperLine &&
     rightLowerLine &&
-    boxes.value[rowIndex][lineIndex] === '' &&
+    gameStore.lines.boxes[rowIndex][lineIndex] === '' &&
     gameStore.turn
   ) {
-    boxes.value[rowIndex][lineIndex] = gameStore.turn;
+    gameStore.lines.boxes[rowIndex][lineIndex] = gameStore.turn;
     playersStore.incrementScore(gameStore.turn);
     madeBox = true;
   }
@@ -161,12 +138,12 @@ const checkForCompleteBox = (rowIndex: number, lineIndex: number, type: LineType
 
 const onLineClick = (row: number, cell: number, type: LineType): void => {
   const [rowIndex, lineIndex] = getNormalisedLineCoordinates(row, cell, type);
-  const line = lines[type][rowIndex][lineIndex];
+  const line = gameStore.lines[type][rowIndex][lineIndex];
   if (line) {
     return;
   }
 
-  lines[type][rowIndex][lineIndex] = 1;
+  gameStore.lines[type][rowIndex][lineIndex] = 1;
 
   const madeBox = checkForCompleteBox(rowIndex, lineIndex, type);
 
@@ -183,12 +160,12 @@ const onLineClick = (row: number, cell: number, type: LineType): void => {
 };
 
 const isActive = (row: number, cell: number, type: 'horizontals' | 'verticals'): boolean => {
-  if (lines[type].length === 0) {
+  if (gameStore.lines[type].length === 0) {
     return false;
   }
 
   const [rowIndex, lineIndex] = getNormalisedLineCoordinates(row, cell, type);
-  return Boolean(lines[type][rowIndex][lineIndex]);
+  return Boolean(gameStore.lines[type][rowIndex][lineIndex]);
 };
 </script>
 

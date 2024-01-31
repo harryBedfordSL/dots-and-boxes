@@ -32,7 +32,7 @@ export const useGameStore = defineStore('game', () => {
     lines.horizontals = Array.from({ length: newGrid.y }, () =>
       Array.from({ length: newGrid.x - 1 }, () => 0)
     );
-    lines.verticals = Array.from({ length: newGrid.x - 1 }, () =>
+    lines.verticals = Array.from({ length: newGrid.x }, () =>
       Array.from({ length: newGrid.y }, () => 0)
     );
     lines.boxes = Array.from({ length: newGrid.y - 1 }, () =>

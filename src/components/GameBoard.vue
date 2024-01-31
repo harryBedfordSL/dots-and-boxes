@@ -9,13 +9,8 @@ import { getRandomInt } from '@/services/randomNumber';
 const gameStore = useGameStore();
 const playersStore = usePlayersStore();
 
-const grid: Grid = reactive({
-  x: gameStore.grid.x,
-  y: gameStore.grid.y
-});
-
-const xLinesAndDots = computed(() => grid.x + (grid.x - 1));
-const yLinesAndDots = computed(() => grid.y + (grid.y - 1));
+const xLinesAndDots = computed(() => gameStore.grid.x + (gameStore.grid.x - 1));
+const yLinesAndDots = computed(() => gameStore.grid.y + (gameStore.grid.y - 1));
 
 onMounted(() => {
   if (gameStore.turn !== null && gameStore.turn !== defaultTurn.value) {
@@ -64,7 +59,11 @@ const remainingLines = computed(() => {
   const horizontalLines = gameStore.lines.horizontals.flat().filter(Boolean).length;
   const verticalLines = gameStore.lines.verticals.flat().filter(Boolean).length;
 
-  return (grid.x - 1) * grid.y + (grid.y - 1) * grid.x - (horizontalLines + verticalLines);
+  return (
+    (gameStore.grid.x - 1) * gameStore.grid.y +
+    (gameStore.grid.y - 1) * gameStore.grid.x -
+    (horizontalLines + verticalLines)
+  );
 });
 
 const checkForCompleteBox = (rowIndex: number, lineIndex: number, type: LineType): boolean => {
@@ -165,7 +164,10 @@ const isActive = (row: number, cell: number, type: 'horizontals' | 'verticals'):
   }
 
   const [rowIndex, lineIndex] = getNormalisedLineCoordinates(row, cell, type);
-  return Boolean(gameStore.lines[type][rowIndex][lineIndex]);
+  const lines = gameStore.lines[type]
+  const wholeRow = lines[rowIndex]
+  const value = wholeRow[lineIndex]
+  return Boolean(value);
 };
 </script>
 

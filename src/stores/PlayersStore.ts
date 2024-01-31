@@ -61,6 +61,9 @@ export const usePlayersStore = defineStore('players', {
       Object.keys(this.players).forEach((key) => {
         this.players[key].score = 0;
       });
+    },
+    incrementScore(playerId: string) {
+      this.players[playerId].score++;
     }
   }
 });

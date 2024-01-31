@@ -3,7 +3,6 @@ import { ref } from 'vue';
 import Modal from './Modal.vue';
 import Button from '../Button.vue';
 import { useGameStore } from '@/stores/GameStore';
-import { calculateWinner } from '@/services/winner';
 import { usePlayersStore } from '@/stores/PlayersStore';
 
 const isVisible = ref(false);
@@ -25,7 +24,6 @@ const restartGame = () => {
 };
 
 const endGame = () => {
-  calculateWinner(gameStore, playersStore);
   gameStore.endGame();
   isVisible.value = false;
 };

@@ -1,6 +1,7 @@
 import { defineStore } from 'pinia';
 import { reactive, ref } from 'vue';
 import { usePlayersStore } from './PlayersStore';
+import { calculateWinner } from '@/services/winner';
 
 export type GameStore = ReturnType<typeof useGameStore>;
 
@@ -25,14 +26,28 @@ export const useGameStore = defineStore('game', () => {
     started.value = true;
   };
 
+  const setWinner = (playerId: string | null) => {
+    winner.value = playerId;
+  }
+
+  const endTurn = () => {
+    if (!turn.value) {
+      return;
+    }
+    const playerIds = Object.keys(playersStore.players);
+    const currentPlayerIndex = playerIds.indexOf(turn.value);
+    const nextPlayerIndex = (playerIds.length - 1) === currentPlayerIndex ? 0 : currentPlayerIndex + 1;
+
+    turn.value = playerIds[nextPlayerIndex];
+  }
+
   return {
     grid,
+    endTurn,
     started,
     turn,
     winner,
-    setWinner(playerId: string | null) {
-      winner.value = playerId;
-    },
+    setWinner,
     startGame,
     resetGame,
     restartGame() {
@@ -43,6 +58,7 @@ export const useGameStore = defineStore('game', () => {
       turn.value = id;
     },
     endGame() {
+      calculateWinner(setWinner, playersStore.players);
       started.value = false;
       turn.value = null;
     },

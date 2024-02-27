@@ -62,8 +62,8 @@ export const usePlayersStore = defineStore('players', {
         this.players[key].score = 0;
       });
     },
-    incrementScore(playerId: string) {
-      this.players[playerId].score++;
+    incrementScore(playerId: string, value: number | undefined = 1) {
+      this.players[playerId].score += value;
     }
   }
 });

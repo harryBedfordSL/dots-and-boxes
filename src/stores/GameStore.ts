@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia';
-import { computed, reactive, ref, watch } from 'vue';
+import { reactive, ref, watch } from 'vue';
 import { usePlayersStore } from './PlayersStore';
 import { calculateWinner } from '@/services/winner';
 import type { Grid } from '@/types';
@@ -11,6 +11,8 @@ export interface Lines {
   verticals: number[][];
   boxes: string[][];
 }
+
+export type LineType = 'horizontals' | 'verticals';
 
 export const useGameStore = defineStore('game', () => {
   const grid = reactive({
@@ -103,6 +105,16 @@ export const useGameStore = defineStore('game', () => {
     },
     decreaseGridY() {
       grid.y--;
+    },
+    setLine(rowIndex: number, lineIndex: number, type: LineType, value: number) {
+      lines[type][rowIndex][lineIndex] = value;
+    },
+    setBox(rowIndex: number, lineIndex: number) {
+      if (!turn.value) {
+        return;
+      }
+      
+      lines.boxes[rowIndex][lineIndex] = turn.value;
     }
   };
 });

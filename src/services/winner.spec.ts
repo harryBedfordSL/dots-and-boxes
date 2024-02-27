@@ -24,7 +24,7 @@ describe('winner', () => {
   const playersStore = usePlayersStore();
 
   test('Should call set winner action', () => {
-    calculateWinner(gameStore, playersStore);
+    calculateWinner(gameStore.setWinner, playersStore.players);
 
     expect(gameStore.setWinner).toHaveBeenCalled();
   });
@@ -35,7 +35,7 @@ describe('winner', () => {
       b: { score: 5, color: 'blue', id: 'b', name: 'Player 1' },
     };
     
-    calculateWinner(gameStore, playersStore);
+    calculateWinner(gameStore.setWinner, playersStore.players);
     
     expect(gameStore.setWinner).toHaveBeenCalledWith('a');
   });
@@ -46,7 +46,7 @@ describe('winner', () => {
       b: { score: 10, color: 'blue', id: 'b', name: 'Player 1' },
     };
 
-    calculateWinner(gameStore, playersStore);
+    calculateWinner(gameStore.setWinner, playersStore.players);
     
     expect(gameStore.setWinner).toHaveBeenCalledWith('draw');
   });

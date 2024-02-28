@@ -66,7 +66,7 @@ describe('GameStore', () => {
 
     store.setLine(rowIndex, lineIndex, type, value);
 
-    expect(store.lines[type][rowIndex][lineIndex]).toBe(value);
+    expect(store.lineConfig[type][rowIndex][lineIndex]).toBe(value);
   });
 
   test('setBox with no turn should not set the box', () => {
@@ -74,7 +74,7 @@ describe('GameStore', () => {
 
     store.setBox(0, 0);
 
-    expect(store.lines.boxes[0][0]).toBe('');
+    expect(store.lineConfig.boxes[0][0]).toBe('');
   });
 
   test('setBox with turn should set the box to the current turn', () => {
@@ -83,46 +83,46 @@ describe('GameStore', () => {
 
     store.setBox(0, 0);
 
-    expect(store.lines.boxes[0][0]).toBe('player1');
+    expect(store.lineConfig.boxes[0][0]).toBe('player1');
   });
 
   test('changing grid x dimension should result in new line dimensions', async () => {
     const store = useGameStore();
-    expect(store.lines.horizontals.length).toBe(5);
-    expect(store.lines.horizontals[0].length).toBe(4);
-    expect(store.lines.verticals.length).toBe(4);
-    expect(store.lines.verticals[0].length).toBe(5);
-    expect(store.lines.boxes.length).toBe(4);
-    expect(store.lines.boxes[0].length).toBe(4);
+    expect(store.lineConfig.horizontals.length).toBe(5);
+    expect(store.lineConfig.horizontals[0].length).toBe(4);
+    expect(store.lineConfig.verticals.length).toBe(4);
+    expect(store.lineConfig.verticals[0].length).toBe(5);
+    expect(store.lineConfig.boxes.length).toBe(4);
+    expect(store.lineConfig.boxes[0].length).toBe(4);
     
     store.increaseGridX();
     
     await nextTick();
-    expect(store.lines.horizontals.length).toBe(5);
-    expect(store.lines.horizontals[0].length).toBe(5);
-    expect(store.lines.verticals.length).toBe(4);
-    expect(store.lines.verticals[0].length).toBe(6);
-    expect(store.lines.boxes.length).toBe(4);
-    expect(store.lines.boxes[0].length).toBe(5);
+    expect(store.lineConfig.horizontals.length).toBe(5);
+    expect(store.lineConfig.horizontals[0].length).toBe(5);
+    expect(store.lineConfig.verticals.length).toBe(4);
+    expect(store.lineConfig.verticals[0].length).toBe(6);
+    expect(store.lineConfig.boxes.length).toBe(4);
+    expect(store.lineConfig.boxes[0].length).toBe(5);
   })
   
   test('changing grid y dimension should result in new lines', async () => {
     const store = useGameStore();
-    expect(store.lines.horizontals.length).toBe(5);
-    expect(store.lines.horizontals[0].length).toBe(4);
-    expect(store.lines.verticals.length).toBe(4);
-    expect(store.lines.verticals[0].length).toBe(5);
-    expect(store.lines.boxes.length).toBe(4);
-    expect(store.lines.boxes[0].length).toBe(4);
+    expect(store.lineConfig.horizontals.length).toBe(5);
+    expect(store.lineConfig.horizontals[0].length).toBe(4);
+    expect(store.lineConfig.verticals.length).toBe(4);
+    expect(store.lineConfig.verticals[0].length).toBe(5);
+    expect(store.lineConfig.boxes.length).toBe(4);
+    expect(store.lineConfig.boxes[0].length).toBe(4);
     
     store.increaseGridY();
     
     await nextTick();
-    expect(store.lines.horizontals.length).toBe(6);
-    expect(store.lines.horizontals[0].length).toBe(4);
-    expect(store.lines.verticals.length).toBe(5);
-    expect(store.lines.verticals[0].length).toBe(5);
-    expect(store.lines.boxes.length).toBe(5);
-    expect(store.lines.boxes[0].length).toBe(4);
+    expect(store.lineConfig.horizontals.length).toBe(6);
+    expect(store.lineConfig.horizontals[0].length).toBe(4);
+    expect(store.lineConfig.verticals.length).toBe(5);
+    expect(store.lineConfig.verticals[0].length).toBe(5);
+    expect(store.lineConfig.boxes.length).toBe(5);
+    expect(store.lineConfig.boxes[0].length).toBe(4);
   })
 });

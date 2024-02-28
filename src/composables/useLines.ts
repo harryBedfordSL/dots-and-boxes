@@ -29,8 +29,8 @@ export const useLines = (): UseLines => {
   };
 
   const remainingLines = computed(() => {
-    const horizontalLines = gameStore.lines.horizontals.flat().filter(Boolean).length;
-    const verticalLines = gameStore.lines.verticals.flat().filter(Boolean).length;
+    const horizontalLines = gameStore.lineConfig.horizontals.flat().filter(Boolean).length;
+    const verticalLines = gameStore.lineConfig.verticals.flat().filter(Boolean).length;
 
     return (
       (gameStore.grid.x - 1) * gameStore.grid.y +
@@ -41,7 +41,7 @@ export const useLines = (): UseLines => {
 
   const onLineClick = (row: number, cell: number, type: LineType): void => {
     const [rowIndex, lineIndex] = getNormalisedLineCoordinates(row, cell, type);
-    const lineAlreadyActive = gameStore.lines[type][rowIndex][lineIndex];
+    const lineAlreadyActive = gameStore.lineConfig[type][rowIndex][lineIndex];
     if (lineAlreadyActive || !gameStore.turn) {
       return;
     }
@@ -50,7 +50,7 @@ export const useLines = (): UseLines => {
 
     const score = getScoreForNewLine({
       lineIndex,
-      lines: gameStore.lines,
+      lineConfig: gameStore.lineConfig,
       onBoxMade: gameStore.setBox,
       rowIndex,
       type
@@ -70,12 +70,12 @@ export const useLines = (): UseLines => {
   };
 
   const hasBeenClicked = (row: number, cell: number, type: LineType): boolean => {
-    if (gameStore.lines[type].length === 0) {
+    if (gameStore.lineConfig[type].length === 0) {
       return false;
     }
 
     const [rowIndex, lineIndex] = getNormalisedLineCoordinates(row, cell, type);
-    const lines = gameStore.lines[type];
+    const lines = gameStore.lineConfig[type];
     const normalisedRow = lines[rowIndex];
 
     return Boolean(normalisedRow[lineIndex]);
@@ -89,11 +89,11 @@ export const useLines = (): UseLines => {
   };
 
   const getBoxStyle = (row: number, cell: number): StyleValue => {
-    if (gameStore.lines.boxes.length === 0) {
+    if (gameStore.lineConfig.boxes.length === 0) {
       return;
     }
     const [rowIndex, cellIndex] = getNormalisedBoxCoordinates(row, cell);
-    const boxId = gameStore.lines.boxes[rowIndex][cellIndex];
+    const boxId = gameStore.lineConfig.boxes[rowIndex][cellIndex];
     const player = playersStore.players[boxId];
 
     return {

@@ -22,7 +22,7 @@ describe('useLines', () => {
 
   describe('hasBeenClicked', () => {
     test('should return false when no lines exist for type', () => {
-      gameStore.lines.horizontals = [];
+      gameStore.lineConfig.horizontals = [];
 
       expect(lines.hasBeenClicked(1, 2, 'horizontals')).toBe(false);
     });
@@ -32,7 +32,7 @@ describe('useLines', () => {
     });
 
     test('should return true when a line has been clicked', () => {
-      gameStore.lines.horizontals = [[1, 0, 0, 0, 0]];
+      gameStore.lineConfig.horizontals = [[1, 0, 0, 0, 0]];
 
       expect(lines.hasBeenClicked(1, 2, 'horizontals')).toBe(true);
     });
@@ -40,7 +40,7 @@ describe('useLines', () => {
 
   describe('onLineClick', () => {
     test('should not set line if line is already active', () => {
-      gameStore.lines.horizontals = [[1, 0, 0, 0, 0]];
+      gameStore.lineConfig.horizontals = [[1, 0, 0, 0, 0]];
       const setLineSpy = vi.spyOn(gameStore, 'setLine');
 
       lines.onLineClick(1, 2, 'horizontals');
@@ -82,12 +82,12 @@ describe('useLines', () => {
     test('should not end turn when a box is made', () => {
       const [playerId] = Object.keys(playersStore.players);
       gameStore.turn = playerId;
-      gameStore.lines.horizontals = [
+      gameStore.lineConfig.horizontals = [
         [0, 0],
         [1, 0],
         [0, 0]
       ];
-      gameStore.lines.verticals = [
+      gameStore.lineConfig.verticals = [
         [1, 1, 0],
         [0, 0, 0]
       ];
@@ -101,14 +101,14 @@ describe('useLines', () => {
   
   describe('getBoxStyle', () => {
     test('should return undefined when no boxes exist', () => {
-      gameStore.lines.boxes = [];
+      gameStore.lineConfig.boxes = [];
       
       expect(lines.getBoxStyle(1, 2)).toBeUndefined();
     });
     
     test('should return player style when box is owned by a player', () => {
       const [playerId] = Object.keys(playersStore.players);
-      gameStore.lines.boxes = [[playerId, ''], ['', '']];
+      gameStore.lineConfig.boxes = [[playerId, ''], ['', '']];
       const color = 'red';
       playersStore.players[playerId] = { ...playersStore.players[playerId], color };
 
@@ -116,7 +116,7 @@ describe('useLines', () => {
     });
 
     test('should return transparent when box is not owned by a player', () => {
-      gameStore.lines.boxes = [['', ''], ['', '']];
+      gameStore.lineConfig.boxes = [['', ''], ['', '']];
       
       expect(lines.getBoxStyle(1, 2)).toEqual({ backgroundColor: 'transparent' });
     });

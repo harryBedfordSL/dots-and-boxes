@@ -3,7 +3,7 @@ import { getScoreForNewLine } from './scoring';
 
 describe('scoring', () => {
   const onBoxMade = vi.fn();
-  const lines = {
+  const lineConfig = {
     horizontals: [[0, 0], [0, 0], [0, 0]],
     verticals: [[0, 0, 0], [0, 0, 0], [0, 0, 0]],
     boxes: [['', ''], ['', '']],
@@ -20,7 +20,7 @@ describe('scoring', () => {
       const newScore = getScoreForNewLine({
         rowIndex: 0,
         lineIndex: 0,
-        lines,
+        lineConfig,
         type,
         onBoxMade,
       });
@@ -33,8 +33,8 @@ describe('scoring', () => {
       const newScore = getScoreForNewLine({
         rowIndex: 0,
         lineIndex: 0,
-        lines: {
-          ...lines,
+        lineConfig: {
+          ...lineConfig,
           horizontals: [[0, 0], [1, 0], [0, 1]],
           verticals: [[1, 1, 0], [0, 0, 0], [0, 0, 0]],
         },
@@ -50,8 +50,8 @@ describe('scoring', () => {
       const newScore = getScoreForNewLine({
         rowIndex: 1,
         lineIndex: 0,
-        lines: {
-          ...lines,
+        lineConfig: {
+          ...lineConfig,
           horizontals: [[1, 0], [0, 0], [0, 0]],
           verticals: [[1, 1, 0], [0, 0, 0], [0, 0, 0]],
         },
@@ -67,8 +67,8 @@ describe('scoring', () => {
       const newScore = getScoreForNewLine({
         rowIndex: 1,
         lineIndex: 0,
-        lines: {
-          ...lines,
+        lineConfig: {
+          ...lineConfig,
           horizontals: [[1, 0], [0, 0], [1, 0]],
           verticals: [[1, 1, 0], [1, 1, 0], [0, 0, 0]],
         },
@@ -88,7 +88,7 @@ describe('scoring', () => {
       const newScore = getScoreForNewLine({
         rowIndex: 0,
         lineIndex: 0,
-        lines,
+        lineConfig: lineConfig,
         type,
         onBoxMade,
       });
@@ -101,8 +101,8 @@ describe('scoring', () => {
       const newScore = getScoreForNewLine({
         rowIndex: 0,
         lineIndex: 1,
-        lines: {
-          ...lines,
+        lineConfig: {
+          ...lineConfig,
           horizontals: [[1, 0], [1, 0], [0, 0]],
           verticals: [[1, 0, 0], [0, 0, 0], [0, 0, 0]],
         },
@@ -118,8 +118,8 @@ describe('scoring', () => {
       const newScore = getScoreForNewLine({
         rowIndex: 0,
         lineIndex: 1,
-        lines: {
-          ...lines,
+        lineConfig: {
+          ...lineConfig,
           horizontals: [[0, 1], [0, 1], [0, 0]],
           verticals: [[0, 0, 1], [0, 0, 0], [0, 0, 0]],
         },
@@ -135,8 +135,8 @@ describe('scoring', () => {
       const newScore = getScoreForNewLine({
         rowIndex: 0,
         lineIndex: 1,
-        lines: {
-          ...lines,
+        lineConfig: {
+          ...lineConfig,
           horizontals: [[1, 1], [1, 1], [0, 0]],
           verticals: [[1, 0, 1], [0, 0, 0], [0, 0, 0]],
         },

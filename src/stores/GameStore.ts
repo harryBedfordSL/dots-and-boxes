@@ -3,14 +3,9 @@ import { reactive, ref, watch } from 'vue';
 import { usePlayersStore } from './PlayersStore';
 import { calculateWinner } from '@/services/winner';
 import type { Grid } from '@/types';
+import { createLineConfig, type LineConfig } from '@/services/lineConfigBuilder';
 
 export type GameStore = ReturnType<typeof useGameStore>;
-
-export interface Lines {
-  horizontals: number[][];
-  verticals: number[][];
-  boxes: string[][];
-}
 
 export type LineType = 'horizontals' | 'verticals';
 
@@ -25,21 +20,13 @@ export const useGameStore = defineStore('game', () => {
 
   const playersStore = usePlayersStore();
 
-  const lines = reactive<Lines>({
-    verticals: Array.from({ length: grid.y - 1 }, () => Array.from({ length: grid.x }, () => 0)),
-    horizontals: Array.from({ length: grid.y }, () => Array.from({ length: grid.x - 1 }, () => 0)),
-    boxes: Array.from({ length: grid.y - 1 }, () => Array.from({ length: grid.x - 1 }, () => ''))
-  });
+  const lineConfig = reactive<LineConfig>(createLineConfig(grid));
+
   const resetLinesAndBoxes = (newGrid: Grid): void => {
-    lines.horizontals = Array.from({ length: newGrid.y }, () =>
-      Array.from({ length: newGrid.x - 1 }, () => 0)
-    );
-    lines.verticals = Array.from({ length: newGrid.y - 1 }, () =>
-      Array.from({ length: newGrid.x }, () => 0)
-    );
-    lines.boxes = Array.from({ length: newGrid.y - 1 }, () =>
-      Array.from({ length: newGrid.x - 1 }, () => '')
-    );
+    const { boxes, horizontals, verticals } = createLineConfig(newGrid);
+    lineConfig.horizontals = horizontals;
+    lineConfig.verticals = verticals;
+    lineConfig.boxes = boxes;
   };
   watch(grid, (newGrid): void => {
     resetLinesAndBoxes(newGrid);
@@ -73,7 +60,7 @@ export const useGameStore = defineStore('game', () => {
   };
 
   return {
-    lines,
+    lineConfig,
     grid,
     endTurn,
     started,
@@ -107,14 +94,14 @@ export const useGameStore = defineStore('game', () => {
       grid.y--;
     },
     setLine(rowIndex: number, lineIndex: number, type: LineType, value: number) {
-      lines[type][rowIndex][lineIndex] = value;
+      lineConfig[type][rowIndex][lineIndex] = value;
     },
     setBox(rowIndex: number, lineIndex: number) {
       if (!turn.value) {
         return;
       }
       
-      lines.boxes[rowIndex][lineIndex] = turn.value;
+      lineConfig.boxes[rowIndex][lineIndex] = turn.value;
     }
   };
 });

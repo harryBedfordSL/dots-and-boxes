@@ -26,7 +26,7 @@ export const useGameStore = defineStore('game', () => {
   const playersStore = usePlayersStore();
 
   const lines = reactive<Lines>({
-    verticals: Array.from({ length: grid.x - 1 }, () => Array.from({ length: grid.y }, () => 0)),
+    verticals: Array.from({ length: grid.y - 1 }, () => Array.from({ length: grid.x }, () => 0)),
     horizontals: Array.from({ length: grid.y }, () => Array.from({ length: grid.x - 1 }, () => 0)),
     boxes: Array.from({ length: grid.y - 1 }, () => Array.from({ length: grid.x - 1 }, () => ''))
   });
@@ -34,8 +34,8 @@ export const useGameStore = defineStore('game', () => {
     lines.horizontals = Array.from({ length: newGrid.y }, () =>
       Array.from({ length: newGrid.x - 1 }, () => 0)
     );
-    lines.verticals = Array.from({ length: newGrid.x }, () =>
-      Array.from({ length: newGrid.y }, () => 0)
+    lines.verticals = Array.from({ length: newGrid.y - 1 }, () =>
+      Array.from({ length: newGrid.x }, () => 0)
     );
     lines.boxes = Array.from({ length: newGrid.y - 1 }, () =>
       Array.from({ length: newGrid.x - 1 }, () => '')

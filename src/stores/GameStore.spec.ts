@@ -1,6 +1,7 @@
 import { beforeEach, describe, expect, test } from 'vitest';
 import { useGameStore } from './GameStore';
 import { createPinia, setActivePinia } from 'pinia';
+import { nextTick } from 'vue';
 
 describe('GameStore', () => {
   beforeEach(() => {
@@ -84,4 +85,44 @@ describe('GameStore', () => {
 
     expect(store.lines.boxes[0][0]).toBe('player1');
   });
+
+  test('changing grid x dimension should result in new line dimensions', async () => {
+    const store = useGameStore();
+    expect(store.lines.horizontals.length).toBe(5);
+    expect(store.lines.horizontals[0].length).toBe(4);
+    expect(store.lines.verticals.length).toBe(4);
+    expect(store.lines.verticals[0].length).toBe(5);
+    expect(store.lines.boxes.length).toBe(4);
+    expect(store.lines.boxes[0].length).toBe(4);
+    
+    store.increaseGridX();
+    
+    await nextTick();
+    expect(store.lines.horizontals.length).toBe(5);
+    expect(store.lines.horizontals[0].length).toBe(5);
+    expect(store.lines.verticals.length).toBe(4);
+    expect(store.lines.verticals[0].length).toBe(6);
+    expect(store.lines.boxes.length).toBe(4);
+    expect(store.lines.boxes[0].length).toBe(5);
+  })
+  
+  test('changing grid y dimension should result in new lines', async () => {
+    const store = useGameStore();
+    expect(store.lines.horizontals.length).toBe(5);
+    expect(store.lines.horizontals[0].length).toBe(4);
+    expect(store.lines.verticals.length).toBe(4);
+    expect(store.lines.verticals[0].length).toBe(5);
+    expect(store.lines.boxes.length).toBe(4);
+    expect(store.lines.boxes[0].length).toBe(4);
+    
+    store.increaseGridY();
+    
+    await nextTick();
+    expect(store.lines.horizontals.length).toBe(6);
+    expect(store.lines.horizontals[0].length).toBe(4);
+    expect(store.lines.verticals.length).toBe(5);
+    expect(store.lines.verticals[0].length).toBe(5);
+    expect(store.lines.boxes.length).toBe(5);
+    expect(store.lines.boxes[0].length).toBe(4);
+  })
 });

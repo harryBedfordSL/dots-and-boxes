@@ -4,7 +4,6 @@ import NumberOfPlayersVue from './NumberOfPlayers.vue';
 import PlayerNames from './PlayerNames.vue';
 import PlayerColors from './PlayerColors.vue';
 import GridSize from './GridSize.vue';
-import StartingPlayer from './StartingPlayer.vue';
 import TimerConfig from './TimerConfig.vue';
 
 const gameStore = useGameStore();
@@ -27,10 +26,6 @@ const gameStore = useGameStore();
     <div class="form-item">
       <img title="Number of Horizontal Dots" src="@/assets/icons/horizontal-arrow.svg" class="icon" />
       <GridSize />
-    </div>
-    <div class="form-item">
-      <img title="Starting Player" src="@/assets/icons/first.svg" class="icon" />
-      <StartingPlayer />
     </div>
     <div class="form-item">
       <img title="Turn Timer (seconds)" src="@/assets/icons/timer.svg" class="icon" />

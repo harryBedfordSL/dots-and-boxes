@@ -9,6 +9,11 @@ export type GameStore = ReturnType<typeof useGameStore>;
 
 export type LineType = 'horizontals' | 'verticals';
 
+export interface TimerConfig {
+  enabled: boolean;
+  seconds: number;
+}
+
 export const useGameStore = defineStore('game', () => {
   const grid = reactive({
     x: 5,
@@ -17,11 +22,11 @@ export const useGameStore = defineStore('game', () => {
   const started = ref(false);
   const turn = ref<string | null>(null);
   const winner = ref<string | null>(null);
-
+  
   const playersStore = usePlayersStore();
-
+  
   const lineConfig = reactive<LineConfig>(createLineConfig(grid));
-
+  
   const resetLinesAndBoxes = (newGrid: Grid): void => {
     const { boxes, horizontals, verticals } = createLineConfig(newGrid);
     lineConfig.horizontals = horizontals;
@@ -31,7 +36,7 @@ export const useGameStore = defineStore('game', () => {
   watch(grid, (newGrid): void => {
     resetLinesAndBoxes(newGrid);
   });
-
+  
   const resetGame = () => {
     playersStore.resetScores();
     resetLinesAndBoxes(grid);
@@ -42,11 +47,11 @@ export const useGameStore = defineStore('game', () => {
     playersStore.resetScores();
     started.value = true;
   };
-
+  
   const setWinner = (playerId: string | null) => {
     winner.value = playerId;
   };
-
+  
   const endTurn = () => {
     if (!turn.value) {
       return;
@@ -54,10 +59,22 @@ export const useGameStore = defineStore('game', () => {
     const playerIds = Object.keys(playersStore.players);
     const currentPlayerIndex = playerIds.indexOf(turn.value);
     const nextPlayerIndex =
-      playerIds.length - 1 === currentPlayerIndex ? 0 : currentPlayerIndex + 1;
-
+    playerIds.length - 1 === currentPlayerIndex ? 0 : currentPlayerIndex + 1;
+    
     turn.value = playerIds[nextPlayerIndex];
   };
+
+  const timerConfig = reactive<TimerConfig>({
+    enabled: false,
+    seconds: 10
+  })
+
+  const toggleTimerEnabled = () => {
+    timerConfig.enabled = !timerConfig.enabled;
+  };
+  const setTimerLimit = (seconds: number) => {
+    timerConfig.seconds = seconds;
+  }
 
   return {
     lineConfig,
@@ -69,6 +86,9 @@ export const useGameStore = defineStore('game', () => {
     setWinner,
     startGame,
     resetGame,
+    timerConfig,
+    toggleTimerEnabled,
+    setTimerLimit,
     restartGame() {
       resetGame();
       startGame();

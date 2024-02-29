@@ -24,7 +24,7 @@ const y = computed(() => gameStore.grid.y);
     ><strong>+</strong>
   </Button
   >
-  <img class="icon" src="@/assets/icons/vertical-arrow.svg" />
+  <img title="Number of Vertical Dots" class="icon" src="@/assets/icons/vertical-arrow.svg" />
   <Button
     class="incrementor"
     @click="gameStore.decreaseGridY"

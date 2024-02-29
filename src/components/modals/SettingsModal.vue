@@ -36,9 +36,9 @@ const endGame = () => {
       <h1>Settings</h1>
     </template>
     <template #body>
-      <Button class="test-home" @click="goHome">Home</Button>
-      <Button class="test-restart" @click="restartGame">Restart</Button>
-      <Button class="test-end" @click="endGame">End Game</Button>
+      <Button class="action test-home" @click="goHome">Home</Button>
+      <Button class="action test-restart" @click="restartGame">Restart</Button>
+      <Button class="action test-end" @click="endGame">End Game</Button>
     </template>
   </Modal>
 </template>
@@ -48,5 +48,9 @@ const endGame = () => {
   position: absolute;
   top: 20px;
   width: 2rem;
+}
+
+.action {
+  width: 150px
 }
 </style>

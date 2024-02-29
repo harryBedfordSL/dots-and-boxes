@@ -21,8 +21,7 @@ const numberOfPlayers = computed(() => Object.keys(playersStore.players).length.
     @click="playersStore.addPlayer"
     :disabled="parseInt(numberOfPlayers) === 4"
     ><strong>+</strong>
-  </Button
-  >
+  </Button>
 </template>
 
 <style scoped>

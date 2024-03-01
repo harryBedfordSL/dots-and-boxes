@@ -9,7 +9,7 @@ export interface TimerProps {
 const props = defineProps<TimerProps>();
 
 const gameStore = useGameStore();
-const timeLimit = ref(gameStore.timerConfig.seconds);
+const timeLimit = computed(() => gameStore.timerConfig.seconds);
 
 const timeLeft = computed(() => timeLimit.value - props.elapsed);
 

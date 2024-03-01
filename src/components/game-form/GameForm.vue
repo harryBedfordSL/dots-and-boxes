@@ -51,7 +51,6 @@ const gameStore = useGameStore();
   flex-direction: column;
   gap: 30px;
   justify-content: center;
-  width: 30%;
   padding: 20px;
 }
 .form-item {

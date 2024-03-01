@@ -3,15 +3,15 @@ import { ref } from 'vue';
 import Modal from './Modal.vue';
 import Button from '../Button.vue';
 import { useGameStore } from '@/stores/GameStore';
-import { usePlayersStore } from '@/stores/PlayersStore';
-
-const isVisible = ref(false);
-const toggleModalVisibility = () => {
-  isVisible.value = !isVisible.value;
-};
 
 const gameStore = useGameStore();
-const playersStore = usePlayersStore();
+
+const isVisible = ref(false);
+
+const onOpen = () => {
+  isVisible.value = true;
+  gameStore.setTimerPaused(true);
+};
 
 const goHome = () => {
   gameStore.resetGame();
@@ -27,11 +27,16 @@ const endGame = () => {
   gameStore.endGame();
   isVisible.value = false;
 };
+
+const onClose = () => {
+  isVisible.value = false;
+  gameStore.setTimerPaused(false);
+};
 </script>
 
 <template>
-  <img src="@/assets/icons/settings.svg" @click="toggleModalVisibility" class="icon clickable settings test-toggle" />
-  <Modal :is-visible="isVisible" @close="isVisible = false">
+  <img src="@/assets/icons/settings.svg" @click="onOpen" class="icon clickable test-toggle" />
+  <Modal :is-visible="isVisible" @close="onClose">
     <template #header>
       <h1>Settings</h1>
     </template>
@@ -44,12 +49,6 @@ const endGame = () => {
 </template>
 
 <style scoped>
-.settings {
-  position: absolute;
-  top: 20px;
-  width: 2rem;
-}
-
 .action {
   width: 150px
 }

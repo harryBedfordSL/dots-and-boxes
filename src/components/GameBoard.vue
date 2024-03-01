@@ -6,12 +6,16 @@ import { computed, onMounted } from 'vue';
 import { usePlayersStore } from '@/stores/PlayersStore';
 import { getRandomInt } from '@/services/randomNumber';
 import { useLines } from '@/composables/useLines';
+import Timer from './Timer.vue';
+import { useTimer } from '@/composables/useTimer';
 
 const gameStore = useGameStore();
 const playersStore = usePlayersStore();
 
 const xLinesAndDots = computed(() => gameStore.grid.x + (gameStore.grid.x - 1));
 const yLinesAndDots = computed(() => gameStore.grid.y + (gameStore.grid.y - 1));
+
+const { timeElapsed } = useTimer();
 
 onMounted(() => {
   if (gameStore.turn !== null && gameStore.turn !== defaultTurn.value) {
@@ -27,7 +31,10 @@ const { hasBeenClicked, onLineClick, getBoxStyle } = useLines();
 </script>
 
 <template>
-  <SettingsModal />
+  <div class="header">
+    <SettingsModal />
+    <Timer v-if="gameStore.timerConfig.enabled" :elapsed="timeElapsed" />
+  </div>
   <div class="box-container">
     <div v-for="row in yLinesAndDots" class="row" :class="{ border: row % 2 }">
       <template class="row-border" v-if="row % 2" v-for="cell in xLinesAndDots">
@@ -67,6 +74,14 @@ const { hasBeenClicked, onLineClick, getBoxStyle } = useLines();
 </template>
 
 <style scoped>
+.header {
+  position: absolute;
+  top: 20px;
+  gap: 20px;
+  display: flex;
+  justify-content: center;
+}
+
 .box-container {
   display: flex;
   flex-direction: column;

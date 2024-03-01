@@ -12,6 +12,7 @@ export type LineType = 'horizontals' | 'verticals';
 export interface TimerConfig {
   enabled: boolean;
   seconds: number;
+  paused: boolean;
 }
 
 export const useGameStore = defineStore('game', () => {
@@ -66,7 +67,8 @@ export const useGameStore = defineStore('game', () => {
 
   const timerConfig = reactive<TimerConfig>({
     enabled: false,
-    seconds: 10
+    seconds: 10,
+    paused: false
   })
 
   const toggleTimerEnabled = () => {
@@ -74,6 +76,9 @@ export const useGameStore = defineStore('game', () => {
   };
   const setTimerLimit = (seconds: number) => {
     timerConfig.seconds = seconds;
+  }
+  const setTimerPaused = (paused: boolean) => {
+    timerConfig.paused = paused;
   }
 
   return {
@@ -87,6 +92,7 @@ export const useGameStore = defineStore('game', () => {
     startGame,
     resetGame,
     timerConfig,
+    setTimerPaused,
     toggleTimerEnabled,
     setTimerLimit,
     restartGame() {

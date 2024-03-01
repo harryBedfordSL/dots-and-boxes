@@ -8,7 +8,10 @@ export const useTimer = () => {
 
   const timeElapsed = ref(0);
   const timerInterval = ref<NodeJS.Timeout | undefined>(undefined);
-  const timeLimit = ref(gameStore.timerConfig.seconds);
+  const timeLimit = computed(() => gameStore.timerConfig.seconds);
+  watch(timeLimit, () => {
+    timeElapsed.value = 0;
+  })
   
   const startTimer = () => {
     timerInterval.value = setInterval(() => {
@@ -20,6 +23,10 @@ export const useTimer = () => {
       }
     }, 1000);
   };
+
+  const stopTimer = () => {
+    clearInterval(timerInterval.value);
+  }
 
   const turn = computed(() => gameStore.turn);
   watch(turn, () => {
@@ -36,22 +43,22 @@ export const useTimer = () => {
   const paused = computed(() => gameStore.timerConfig.paused);
   const timerEnabled = computed(() => gameStore.timerConfig.enabled);
   watch(paused, (newPaused) => {
-    if (!newPaused && timerEnabled) {
+    if (!newPaused && timerEnabled.value) {
       startTimer();
       return;
     }
 
-    clearInterval(timerInterval.value);
+    stopTimer();
   });
 
   onMounted(() => {
-    if (timerEnabled && !paused.value) {
+    if (timerEnabled.value && !paused.value) {
       startTimer();
     }
   });
 
   onUnmounted(() => {
-    clearInterval(timerInterval.value);
+    stopTimer();
   });
 
   return { timeElapsed };

@@ -87,8 +87,8 @@ const { hasBeenClicked, onLineClick, getBoxStyle } = useLines();
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  width: 75%;
-  height: 75%;
+  width: 45%;
+  height: 80%;
 }
 
 .x-line-container {
@@ -152,5 +152,6 @@ const { hasBeenClicked, onLineClick, getBoxStyle } = useLines();
   height: 100%;
   flex: 1;
   border-radius: 5px;
+  transition: background-color 0.3s ease-in-out;
 }
 </style>

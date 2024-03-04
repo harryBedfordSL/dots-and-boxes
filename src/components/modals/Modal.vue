@@ -72,9 +72,8 @@ useClickOutside({
   margin: auto;
   width: fit-content;
   height: fit-content;
-  max-width: 30em;
   max-height: 75%;
-  padding: 1rem;
+  max-width: -webkit-fill-available;
   border-radius: 1rem;
   box-shadow: 5px 5px 0px 1px var(--background-secondary);
   background: var(--background-primary);
@@ -94,7 +93,7 @@ useClickOutside({
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 20px 10px;
+  padding: 1rem;
 }
 
 .btn-close {

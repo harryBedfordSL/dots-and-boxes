@@ -91,6 +91,13 @@ const { hasBeenClicked, onLineClick, getBoxStyle } = useLines();
   height: 80%;
 }
 
+@media (max-width: 768px) {
+  .box-container {
+    width: 90%;
+    height: 60%;
+  }
+}
+
 .x-line-container {
   opacity: 0;
   padding: 10px;

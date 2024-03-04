@@ -34,18 +34,13 @@ const gameStore = useGameStore();
       <img title="Turn Timer (seconds)" src="@/assets/icons/timer.svg" class="icon" />
       <TimerConfig />
     </div>
-    <Button @click="gameStore.startGame">
+    <Button class="test-play" @click="gameStore.startGame">
       PLAY
     </Button>
   </form>
 </template>
 
 <style scoped>
-.play {
-  height: 100px;
-  width: 100px;
-}
-
 .form-container {
   align-items: center;
   display: flex;

@@ -48,6 +48,7 @@ describe('SettingsModal', () => {
     await nextTick();
     expect(wrapper.find('h1').exists()).toBe(false);
     expect(store.resetGame).toHaveBeenCalled();
+    expect(store.setTimerPaused).toHaveBeenCalled();
   });
 
   test('Clicking reset game should close modal and call correct action', async () => {
@@ -59,6 +60,7 @@ describe('SettingsModal', () => {
     await nextTick();
     expect(wrapper.find('h1').exists()).toBe(false);
     expect(store.restartGame).toHaveBeenCalled();
+    expect(store.setTimerPaused).toHaveBeenCalled();
   });
 
   test('Clicking end game should close modal and call correct action', async () => {
@@ -70,5 +72,6 @@ describe('SettingsModal', () => {
     await nextTick();
     expect(wrapper.find('h1').exists()).toBe(false);
     expect(store.endGame).toHaveBeenCalled();
+    expect(store.setTimerPaused).toHaveBeenCalled();
   });
 });

@@ -13,19 +13,24 @@ const winner = computed(() => {
     return null;
   }
 
-  return playersStore.players[winnerId.value]
+  return playersStore.players[winnerId.value];
 });
+
+const pluralize = (word: string, count: number) => (count === 1 ? word : `${word}s`);
 </script>
 
 <template>
   <div class="container">
     <template v-if="winner">
-      <h1>Congratualtions {{ winner.name }}!</h1>
-      <p>You won the game with {{ winner.score }} points</p>
+      <h1>Congratulations {{ winner.name }}!</h1>
+      <p>You won the game with {{ winner.score }} {{ pluralize('point', winner.score) }}</p>
     </template>
     <template v-else>
       <h1>DRAW!</h1>
-      <p>Both players have {{ Object.values(playersStore.players)[0].score }} points</p>
+      <p>
+        Both players have {{ Object.values(playersStore.players)[0].score }}
+        {{ pluralize('point', Object.values(playersStore.players)[0].score) }}
+      </p>
     </template>
     <div class="actions">
       <Button class="test-home" @click="gameStore.resetGame">Home</Button>

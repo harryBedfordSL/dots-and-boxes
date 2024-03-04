@@ -48,7 +48,7 @@ const onClose = () => {
           <TimerConfig />
         </div>
       </div>
-      <div class="actions-conatiner">
+      <div class="actions-container">
         <Button class="action test-home" @click="goHome">Home</Button>
         <Button class="action test-restart" @click="restartGame">Restart</Button>
         <Button class="action test-end" @click="endGame">End Game</Button>
@@ -78,11 +78,12 @@ const onClose = () => {
   align-items: center;
 }
 
-.actions-conatiner {
+.actions-container {
   display: flex;
   justify-content: space-between;
   gap: 10px;
   padding: 20px 0 0 0;
+  max-width: -webkit-fill-available;
 }
 
 .action {

@@ -13,10 +13,11 @@ import GameForm from './game-form/GameForm.vue';
 
 <style scoped>
 .header {
+  padding: 0 20px;
   align-items: center;
   display: flex;
-  width: 50%;
   gap: 10px;
   justify-content: center;
+  max-width: -webkit-fill-available;
 }
 </style>

@@ -14,25 +14,26 @@ const onOpen = () => {
   gameStore.setTimerPaused(true);
 };
 
-const goHome = () => {
-  gameStore.resetGame();
-  isVisible.value = false;
-};
-
-const restartGame = () => {
-  gameStore.restartGame();
-  isVisible.value = false;
-};
-
-const endGame = () => {
-  gameStore.endGame();
-  isVisible.value = false;
-};
-
 const onClose = () => {
   isVisible.value = false;
   gameStore.setTimerPaused(false);
 };
+
+const goHome = () => {
+  onClose();
+  gameStore.resetGame();
+};
+
+const restartGame = () => {
+  onClose();
+  gameStore.restartGame();
+};
+
+const endGame = () => {
+  onClose();
+  gameStore.endGame();
+};
+
 </script>
 
 <template>

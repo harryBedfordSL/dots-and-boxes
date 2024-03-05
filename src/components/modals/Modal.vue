@@ -73,11 +73,18 @@ useClickOutside({
   width: fit-content;
   height: fit-content;
   max-height: 75%;
-  max-width: -webkit-fill-available;
+  max-width: 40%;
   border-radius: 1rem;
   box-shadow: 5px 5px 0px 1px var(--background-secondary);
   background: var(--background-primary);
   z-index: 999;
+}
+
+@media (max-width: 920px) {
+  .modal {
+    max-width: -webkit-fill-available;
+  }
+
 }
 
 .modal-header {
